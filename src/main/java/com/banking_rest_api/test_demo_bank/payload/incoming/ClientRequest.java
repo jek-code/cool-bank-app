@@ -1,19 +1,19 @@
 package com.banking_rest_api.test_demo_bank.payload.incoming;
 
-import com.banking_rest_api.test_demo_bank.model.TransactionType;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DepositRequest {
+public class ClientRequest {
 
-    private int accountId;
-    private BigInteger sum;
+    private Long accountID;
+    private BigDecimal sum;
 }

@@ -1,21 +1,18 @@
 package com.banking_rest_api.test_demo_bank.payload.incoming;
 
-
-import com.banking_rest_api.test_demo_bank.model.TransactionType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class WithdrawRequest {
-
-    private int accountId;
-    private BigInteger sum;
-
+public class ClientTransferRequest {
+    private Long senderAccountID;
+    private Long receiverAccountID;
+    private BigDecimal sum;
 }

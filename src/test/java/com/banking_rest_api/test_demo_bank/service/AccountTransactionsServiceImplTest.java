@@ -1,7 +1,6 @@
 package com.banking_rest_api.test_demo_bank.service;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,6 +8,7 @@ import com.banking_rest_api.test_demo_bank.model.Account;
 import com.banking_rest_api.test_demo_bank.model.Transaction;
 import com.banking_rest_api.test_demo_bank.payload.outgoing.TransactionResponse;
 import com.banking_rest_api.test_demo_bank.repository.TransactionsRepository;
+import com.banking_rest_api.test_demo_bank.service.impl.AccountTransactionsServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -18,7 +18,6 @@ import org.mockito.MockitoAnnotations;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 public class AccountTransactionsServiceImplTest {
@@ -39,14 +38,14 @@ public class AccountTransactionsServiceImplTest {
 
     @Test
     public void testAllTransactionsForAccountID() {
-        int accountId = 1;
+        Long accountId = 1L;
         Transaction transaction1 = new Transaction();
         transaction1.setAccount(accountId);
-        transaction1.setSum(BigInteger.valueOf(100));
+        transaction1.setSum(BigDecimal.valueOf(100));
 
         Transaction transaction2 = new Transaction();
         transaction2.setAccount(accountId);
-        transaction2.setSum(BigInteger.valueOf(200));
+        transaction2.setSum(BigDecimal.valueOf(200));
 
         List<Transaction> transactions = Arrays.asList(transaction1, transaction2);
 
@@ -61,17 +60,17 @@ public class AccountTransactionsServiceImplTest {
     @Test
     public void testDeposit() {
         Transaction transaction = new Transaction();
-        transaction.setAccount(1);
-        transaction.setSum(BigInteger.valueOf(100));
+        transaction.setAccount(1L);
+        transaction.setSum(BigDecimal.valueOf(100));
         transaction.setOrderID("order1");
 
         Account account = new Account();
-        account.setId(1);
-        account.setBalance(BigInteger.valueOf(200));
+        account.setId(1L);
+        account.setBalance(BigDecimal.valueOf(200));
         account.setFirst_name("John");
         account.setLast_name("Doe");
 
-        when(managementService.getById(1)).thenReturn(account);
+        when(managementService.getById(1L)).thenReturn(account);
 
         TransactionResponse response = accountTransactionsService.deposit(transaction);
 
@@ -88,17 +87,17 @@ public class AccountTransactionsServiceImplTest {
     @Test
     public void testWithdraw_Success() {
         Transaction transaction = new Transaction();
-        transaction.setAccount(1);
-        transaction.setSum(BigInteger.valueOf(100));
+        transaction.setAccount(1L);
+        transaction.setSum(BigDecimal.valueOf(100));
         transaction.setOrderID("order1");
 
         Account account = new Account();
-        account.setId(1);
-        account.setBalance(BigInteger.valueOf(200));
+        account.setId(1L);
+        account.setBalance(BigDecimal.valueOf(200));
         account.setFirst_name("John");
         account.setLast_name("Doe");
 
-        when(managementService.getById(1)).thenReturn(account);
+        when(managementService.getById(1L)).thenReturn(account);
 
         TransactionResponse response = accountTransactionsService.withdraw(transaction);
 
@@ -115,17 +114,17 @@ public class AccountTransactionsServiceImplTest {
     @Test
     public void testWithdraw_InsufficientFunds() {
         Transaction transaction = new Transaction();
-        transaction.setAccount(1);
-        transaction.setSum(BigInteger.valueOf(300)); // More than the current balance
+        transaction.setAccount(1L);
+        transaction.setSum(BigDecimal.valueOf(300)); // More than the current balance
         transaction.setOrderID("order1");
 
         Account account = new Account();
-        account.setId(1);
-        account.setBalance(BigInteger.valueOf(200));
+        account.setId(1L);
+        account.setBalance(BigDecimal.valueOf(200));
         account.setFirst_name("John");
         account.setLast_name("Doe");
 
-        when(managementService.getById(1)).thenReturn(account);
+        when(managementService.getById(1L)).thenReturn(account);
 
         TransactionResponse response = accountTransactionsService.withdraw(transaction);
 

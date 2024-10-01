@@ -7,8 +7,6 @@ import java.math.BigInteger;
 import java.util.List;
 
 public interface AccountTransactionsService {
-
-    List<Transaction> allTransactionsForAccountID(int accountID);
-    TransactionResponse deposit(Transaction transaction);
-    TransactionResponse withdraw(Transaction transaction);
+    List<Transaction> allTransactionsForAccountID(Long accountID);
+    TransactionResponse saveTransaction(Transaction trans);
 }

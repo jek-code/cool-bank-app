@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +23,7 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Long id;
 
     @Column(name = "first_name")
     private String first_name;
@@ -34,10 +35,5 @@ public class Account {
     private Date birthday;
 
     @Column(name = "balance")
-    private BigInteger balance;
-
-//    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    @JsonIgnore
-//    private List<Transaction> transactions;
-
+    private BigDecimal balance;
 }

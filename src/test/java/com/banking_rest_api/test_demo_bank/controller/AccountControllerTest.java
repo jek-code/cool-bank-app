@@ -1,18 +1,12 @@
 package com.banking_rest_api.test_demo_bank.controller;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
-import static org.springframework.http.HttpStatus.OK;
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.banking_rest_api.test_demo_bank.model.Account;
 import com.banking_rest_api.test_demo_bank.model.Transaction;
-import com.banking_rest_api.test_demo_bank.payload.incoming.DepositRequest;
-import com.banking_rest_api.test_demo_bank.payload.incoming.TransferRequest;
-import com.banking_rest_api.test_demo_bank.payload.incoming.WithdrawRequest;
 import com.banking_rest_api.test_demo_bank.service.AccountManagementService;
 import com.banking_rest_api.test_demo_bank.service.AccountTransactionsService;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,15 +14,13 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 class AccountControllerTest {
 
@@ -72,12 +64,12 @@ class AccountControllerTest {
     @Test
     public void testGetAccById() throws Exception {
 
-        int accountId = 1;
+        Long accountId = 1L;
         var account = Account.builder()
-                .id(1)
+                .id(1L)
                 .first_name("Sarah")
                 .last_name("Doe")
-                .balance(BigInteger.valueOf(500))
+                .balance(BigDecimal.valueOf(500.0))
                 .build();
 
         when(managementService.getById(accountId)).thenReturn(account);
@@ -106,8 +98,8 @@ class AccountControllerTest {
     @Test
     public void testDeposit() throws Exception {
         DepositRequest request = new DepositRequest();
-        request.setAccountId(1);
-        request.setSum(BigInteger.valueOf(100));
+        request.setAccountId(1L);
+        request.setSum(BigDecimal.valueOf(100));
 
         mockMvc.perform(post("/api/v1/deposit")
                         .contentType("application/json")
@@ -120,8 +112,8 @@ class AccountControllerTest {
     @Test
     public void testWithdraw() throws Exception {
         WithdrawRequest request = new WithdrawRequest();
-        request.setAccountId(1);
-        request.setSum(BigInteger.valueOf(50));
+        request.setAccountId(1L);
+        request.setSum(BigDecimal.valueOf(50));
 
         mockMvc.perform(post("/api/v1/withdraw")
                         .contentType("application/json")
@@ -134,9 +126,9 @@ class AccountControllerTest {
     @Test
     public void testTransfer() throws Exception {
         TransferRequest request = new TransferRequest();
-        request.setSenderAccountID(1);
-        request.setReceiverAccountID(2);
-        request.setSum(BigInteger.valueOf(75));
+        request.setSenderAccountID(1L);
+        request.setReceiverAccountID(2L);
+        request.setSum(BigDecimal.valueOf(75));
 
         mockMvc.perform(post("/api/v1/transfer")
                         .contentType("application/json")

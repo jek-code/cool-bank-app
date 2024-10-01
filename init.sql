@@ -1,8 +1,6 @@
-DROP SCHEMA IF EXISTS `bankingAppSchema`;
+CREATE SCHEMA `banking-app-schema`;
 
-CREATE SCHEMA `bankingAppSchema`;
-
-USE `bankingAppSchema`;
+USE `banking-app-schema`;
 
 SET FOREIGN_KEY_CHECKS = 0;
 
@@ -19,7 +17,7 @@ CREATE TABLE `bank_accounts` (
 CREATE TABLE `transactions` (
   `id` int NOT NULL AUTO_INCREMENT,
   `account_id` int NOT NULL,
-  `type` varchar(45),
+  `type` int NOT NULL,
   `date_created` DATETIME DEFAULT NULL,
   `sum` DOUBLE DEFAULT NULL,
   `order_id` varchar(45),
