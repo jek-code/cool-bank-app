@@ -82,11 +82,7 @@ public class AccountManagementServiceImpl implements AccountManagementService {
 
     @Transactional
     public TransactionResponse transfer(List<Transaction> transactions) {
-
         withdraw(transactions.get(0));
-        transServ.saveTransaction(transactions.get(0));
-
-        deposit(transactions.get(1));
-        return transServ.saveTransaction(transactions.get(1));
+        return deposit(transactions.get(1));
     }
 }

@@ -7,7 +7,6 @@ import com.banking_rest_api.test_demo_bank.payload.incoming.ClientTransferReques
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
