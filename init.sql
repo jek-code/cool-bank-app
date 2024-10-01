@@ -11,6 +11,8 @@ CREATE TABLE `bank_accounts` (
   `last_name` varchar(45) DEFAULT NULL,
   `birthday` DATETIME DEFAULT NULL,
   `balance` DOUBLE DEFAULT NULL,
+  `created` DATETIME DEFAULT NULL,
+  `modified` DATETIME DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
@@ -18,7 +20,7 @@ CREATE TABLE `transactions` (
   `id` int NOT NULL AUTO_INCREMENT,
   `account_id` int NOT NULL,
   `type` int NOT NULL,
-  `date_created` DATETIME DEFAULT NULL,
+  `created` DATETIME DEFAULT NULL,
   `sum` DOUBLE DEFAULT NULL,
   `order_id` varchar(45),
   PRIMARY KEY (`id`),

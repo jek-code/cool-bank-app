@@ -1,16 +1,16 @@
 package com.banking_rest_api.test_demo_bank.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @Entity
@@ -36,4 +36,12 @@ public class Account {
 
     @Column(name = "balance")
     private BigDecimal balance;
+
+    @CreationTimestamp
+    @Column(name = "created")
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "modified")
+    private LocalDateTime modifiedAt;
 }

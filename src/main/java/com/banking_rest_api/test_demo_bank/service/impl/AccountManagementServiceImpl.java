@@ -9,6 +9,7 @@ import com.banking_rest_api.test_demo_bank.repository.AccountRepository;
 import com.banking_rest_api.test_demo_bank.service.AccountManagementService;
 import com.banking_rest_api.test_demo_bank.service.AccountTransactionsService;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,7 @@ import javax.naming.InsufficientResourcesException;
 import javax.security.auth.login.AccountNotFoundException;
 import java.util.List;
 
+@Slf4j
 @Service
 public class AccountManagementServiceImpl implements AccountManagementService {
 
@@ -27,6 +29,8 @@ public class AccountManagementServiceImpl implements AccountManagementService {
 
     @Override
     public AccountCreatedResponse saveAccount(Account account) {
+        log.info("creating new account for {}", account.getFirst_name());
+
         repo.save(account);
         return AccountCreatedResponse.builder()
                 .wasSuccessful(true)
@@ -38,6 +42,8 @@ public class AccountManagementServiceImpl implements AccountManagementService {
     @Override
     @SneakyThrows
     public AccountDTO getById(Long id) {
+        log.info("searching for account #{}", id);
+
         var acc =  repo.findById(id).orElseThrow(AccountNotFoundException::new);
         return new AccountDTO(acc.getId(), acc.getFirst_name(), acc.getLast_name(), acc.getBirthday(), acc.getBalance(), transServ.allTransactionsForAccountID(id));
     }
@@ -49,6 +55,7 @@ public class AccountManagementServiceImpl implements AccountManagementService {
 
     @Transactional
     public TransactionResponse deposit(Transaction transaction) {
+        log.info("starting {} order {}", transaction.getType().toString(),transaction.getOrderID());
 
         var acc = repo.getReferenceById(transaction.getAccount());
         acc.setBalance(acc.getBalance().add(transaction.getSum()));
@@ -59,6 +66,7 @@ public class AccountManagementServiceImpl implements AccountManagementService {
 
     @Transactional
     public TransactionResponse withdraw(Transaction transaction) {
+        log.info("starting {} order {}", transaction.getType().toString(),transaction.getOrderID());
 
         var account = repo.getReferenceById(transaction.getAccount());
         var sum = transaction.getSum();
