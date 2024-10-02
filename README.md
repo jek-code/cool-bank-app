@@ -3,11 +3,12 @@ test_demo_bank
 A simple REST API for a banking application. The API allows users to perform basic banking operations such as creating accounts, making deposits, and transferring funds. The project is fully documented with Swagger and covered with tests using JaCoCo for code coverage reporting.
 
 Features:
-Create a new bank account;
-Make deposits to accounts;
-Transfer funds between accounts;
-View account details and transactions;
-View all accounts;
+
+-Create a new bank account;
+-Make deposits to accounts;
+-Transfer funds between accounts;
+-View account details and transactions;
+-View all accounts;
 
 Technologies Used:
 
