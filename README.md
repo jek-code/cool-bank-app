@@ -63,7 +63,7 @@ Setup Instructions
 3. Access Swagger Documentation
    Once the application is running, you can explore the API using the Swagger UI at:
 
-         http://localhost:8080/swagger-ui/
+         http://localhost:8080/swagger-ui/index.html
    
 5. Database Configuration
    The application uses a MySQL database, which is set up automatically through Docker. The connection details can be modified in the application.yml file.
