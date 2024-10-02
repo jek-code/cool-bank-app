@@ -1,9 +1,8 @@
-CREATE SCHEMA `banking-app-schema`;
+#CREATE SCHEMA `banking-app-schema`;
 
 USE `banking-app-schema`;
 
 SET FOREIGN_KEY_CHECKS = 0;
-
 
 CREATE TABLE `bank_accounts` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -26,7 +25,5 @@ CREATE TABLE `transactions` (
   PRIMARY KEY (`id`),
   FOREIGN KEY (`account_id`) REFERENCES bank_accounts (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
-
-
 
 SET FOREIGN_KEY_CHECKS = 1;

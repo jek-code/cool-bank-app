@@ -9,7 +9,7 @@ services:
       MYSQL_ROOT_PASSWORD: 'password'
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-      - C:\Users\user\Desktop\work\data\projects\MY PROJECTS\test-demo-bank\data:/var/lib/mysql
+      - ./data:/var/lib/mysql
     ports:
       - "3306:3306"
 
