@@ -3,7 +3,7 @@ package com.banking_rest_api.test_demo_bank.service;
 import com.banking_rest_api.test_demo_bank.model.Transaction;
 import com.banking_rest_api.test_demo_bank.payload.outgoing.TransactionResponse;
 import com.banking_rest_api.test_demo_bank.repository.TransactionsRepository;
-import com.banking_rest_api.test_demo_bank.service.impl.AccountTransactionsServiceImpl;
+import com.banking_rest_api.test_demo_bank.service.impl.TransactionsServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -16,13 +16,13 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class AccountTransactionsServiceImplTest {
+public class TransactionsServiceImplTest {
 
     @Mock
     private TransactionsRepository transactionsRepository;
 
     @InjectMocks
-    private AccountTransactionsServiceImpl accountTransactionsService;
+    private TransactionsServiceImpl accountTransactionsService;
 
     @BeforeEach
     public void setUp() {

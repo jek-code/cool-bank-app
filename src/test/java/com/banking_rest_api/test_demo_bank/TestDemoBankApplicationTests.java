@@ -2,7 +2,7 @@ package com.banking_rest_api.test_demo_bank;
 
 import com.banking_rest_api.test_demo_bank.controller.AccountController;
 import com.banking_rest_api.test_demo_bank.service.AccountManagementService;
-import com.banking_rest_api.test_demo_bank.service.AccountTransactionsService;
+import com.banking_rest_api.test_demo_bank.service.TransactionsService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +18,12 @@ class TestDemoBankApplicationTests {
 	private AccountManagementService accountManagementService;
 
 	@Autowired
-	private AccountTransactionsService accountTransactionsService;
+	private TransactionsService transactionsService;
 
 	@Test
 	void contextLoads() {
 		Assertions.assertNotNull(accountController, "AccountController should be loaded");
 		Assertions.assertNotNull(accountManagementService, "AccountManagementService should be loaded");
-		Assertions.assertNotNull(accountTransactionsService, "AccountTransactionsService should be loaded");
+		Assertions.assertNotNull(transactionsService, "AccountTransactionsService should be loaded");
 	}
 }
