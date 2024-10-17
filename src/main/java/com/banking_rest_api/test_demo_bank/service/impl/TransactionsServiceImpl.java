@@ -33,7 +33,7 @@ public class TransactionsServiceImpl implements TransactionsService {
 
         log.info("starting {} order {}", transaction.getType().toString(),transaction.getOrderID());
 
-        Account account = accountRepository.findByIdWithoutTransactions(transaction.getAccount().getId()).orElseThrow();
+        Account account = accountRepository.findByIdWithoutTransactions(transaction.getAccountId()).orElseThrow();
         account.setBalance(account.getBalance().add(transaction.getSum()));
         accountRepository.save(account);
         transactionsRepository.save(transaction);
@@ -50,7 +50,7 @@ public class TransactionsServiceImpl implements TransactionsService {
 
         log.info("starting {} order {}", transaction.getType().toString(),transaction.getOrderID());
 
-        Account account = accountRepository.findByIdWithoutTransactions(transaction.getAccount().getId()).orElseThrow();
+        Account account = accountRepository.findByIdWithoutTransactions(transaction.getAccountId()).orElseThrow();
 
         if (account.getBalance().compareTo(transaction.getSum()) >= 0) {
 

@@ -7,11 +7,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 @Entity
@@ -27,21 +26,20 @@ public class Transaction {
     private Long id;
 
     @CreationTimestamp
-    @Column(name = "created")
+    @Column(name = "created", nullable = false)
     private LocalDateTime createdAt;
 
-    // Link to the Account
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id", nullable = false)
-    private Account account;
+    @Column(name = "account_id", nullable = false)
+    private Long accountId;
 
-    @Column(name = "type")
+    @Column(name = "type", nullable = false)
+    @Enumerated(EnumType.STRING)
     private TransactionType type;
 
-    @Column(name = "sum")
+    @Column(name = "sum", nullable = false)
     private BigDecimal sum;
 
-    @Column(name = "order_id")
+    @Column(name = "order_id", nullable = false, unique = true)
     private String orderID;
 
 }

@@ -26,13 +26,13 @@ public class Account {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     private String first_name;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
     private String last_name;
 
-    @Column(name = "birthday")
+    @Column(name = "birthday", nullable = false)
     private Date birthday;
 
     @Column(name = "balance")
@@ -42,7 +42,7 @@ public class Account {
     private List<Transaction> transactions;
 
     @CreationTimestamp
-    @Column(name = "created")
+    @Column(name = "created", nullable = false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp

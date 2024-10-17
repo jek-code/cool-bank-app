@@ -18,7 +18,7 @@ CREATE TABLE `bank_accounts` (
 CREATE TABLE `transactions` (
   `id` int NOT NULL AUTO_INCREMENT,
   `account_id` int NOT NULL,
-  `type` int NOT NULL,
+  `type` varchar(20) NOT NULL,
   `created` DATETIME DEFAULT NULL,
   `sum` DOUBLE DEFAULT NULL,
   `order_id` varchar(45),

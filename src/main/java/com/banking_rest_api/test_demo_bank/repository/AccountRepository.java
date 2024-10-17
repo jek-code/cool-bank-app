@@ -13,13 +13,13 @@ import java.util.Optional;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
-    // Fetch account with transactions for fetching by ID
+
     @EntityGraph(attributePaths = {"transactions"})
     Optional<Account> findByIdWithTransactions(Long id);
 
     @Query("SELECT a FROM Account a WHERE a.id = :id")
     Optional<Account> findByIdWithoutTransactions(@Param("id") Long id);
-    // Fetch all accounts without transactions
+
     @Query("SELECT a FROM Account a")
     List<Account> findAllAccountsWithoutTransactions();
 }
