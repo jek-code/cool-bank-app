@@ -1,5 +1,6 @@
 package com.banking_rest_api.test_demo_bank.service.impl;
 
+import com.banking_rest_api.test_demo_bank.exception.AccountNotFoundException;
 import com.banking_rest_api.test_demo_bank.mapper.AccountMapper;
 import com.banking_rest_api.test_demo_bank.model.Account;
 import com.banking_rest_api.test_demo_bank.model.dtos.AccountDTO;
@@ -8,11 +9,9 @@ import com.banking_rest_api.test_demo_bank.payload.outgoing.AccountCreatedRespon
 import com.banking_rest_api.test_demo_bank.repository.AccountRepository;
 import com.banking_rest_api.test_demo_bank.service.AccountManagementService;
 import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.security.auth.login.AccountNotFoundException;
 import java.util.List;
 
 @Slf4j
@@ -36,10 +35,9 @@ public class AccountManagementServiceImpl implements AccountManagementService {
 
 
     @Override
-    @SneakyThrows
     public AccountDTO getAccountById(Long id) {
         log.info("searching for account #{}", id);
-        return mapper.accountToDto(accountRepository.findWithTransactionsById(id).orElseThrow(AccountNotFoundException::new));
+        return mapper.accountToDto(accountRepository.findWithTransactionsById(id).orElseThrow(() -> new AccountNotFoundException("Account with ID " + id + " not found")));
     }
 
     @Override

@@ -7,4 +7,4 @@ import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
-public record AccountDTO (Long id, String firstName, String lastName, Date birthday, BigDecimal balance, List<Transaction> transactions) { }
+public record AccountDTO (Long id, String first_name, String last_name, Date birthday, BigDecimal balance, List<Transaction> transactions) { }

@@ -1,5 +1,6 @@
 package com.banking_rest_api.test_demo_bank.service.impl;
 
+import com.banking_rest_api.test_demo_bank.exception.AccountNotFoundException;
 import com.banking_rest_api.test_demo_bank.model.Account;
 import com.banking_rest_api.test_demo_bank.model.Transaction;
 import com.banking_rest_api.test_demo_bank.payload.outgoing.TransactionResponse;
@@ -33,7 +34,8 @@ public class TransactionsServiceImpl implements TransactionsService {
 
         log.info("starting {} order {}", transaction.getType().toString(),transaction.getOrderID());
 
-        Account account = accountRepository.findWithoutTransactionsById(transaction.getAccountId()).orElseThrow();
+        var accId = transaction.getAccountId();
+        Account account = accountRepository.findWithoutTransactionsById(accId).orElseThrow(() -> new AccountNotFoundException("Account with ID " + accId + " not found"));
         account.setBalance(account.getBalance().add(transaction.getSum()));
         accountRepository.save(account);
         transactionsRepository.save(transaction);
@@ -50,7 +52,8 @@ public class TransactionsServiceImpl implements TransactionsService {
 
         log.info("starting {} order {}", transaction.getType().toString(),transaction.getOrderID());
 
-        Account account = accountRepository.findWithoutTransactionsById(transaction.getAccountId()).orElseThrow();
+        var accId = transaction.getAccountId();
+        Account account = accountRepository.findWithoutTransactionsById(accId).orElseThrow(() -> new AccountNotFoundException("Account with ID " + accId + " not found"));
 
         if (account.getBalance().compareTo(transaction.getSum()) >= 0) {
 
