@@ -24,7 +24,7 @@ public class TransactionsServiceImpl implements TransactionsService {
 
     @Override
     public List<Transaction> allTransactionsForAccountID(Long accountID) {
-        return transactionsRepository.findByAccount(accountID);
+        return transactionsRepository.findByAccountId(accountID);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class TransactionsServiceImpl implements TransactionsService {
 
         log.info("starting {} order {}", transaction.getType().toString(),transaction.getOrderID());
 
-        Account account = accountRepository.findByIdWithoutTransactions(transaction.getAccountId()).orElseThrow();
+        Account account = accountRepository.findWithoutTransactionsById(transaction.getAccountId()).orElseThrow();
         account.setBalance(account.getBalance().add(transaction.getSum()));
         accountRepository.save(account);
         transactionsRepository.save(transaction);
@@ -50,7 +50,7 @@ public class TransactionsServiceImpl implements TransactionsService {
 
         log.info("starting {} order {}", transaction.getType().toString(),transaction.getOrderID());
 
-        Account account = accountRepository.findByIdWithoutTransactions(transaction.getAccountId()).orElseThrow();
+        Account account = accountRepository.findWithoutTransactionsById(transaction.getAccountId()).orElseThrow();
 
         if (account.getBalance().compareTo(transaction.getSum()) >= 0) {
 

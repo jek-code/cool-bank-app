@@ -1,7 +1,8 @@
 package com.banking_rest_api.test_demo_bank.controller;
 
 import com.banking_rest_api.test_demo_bank.model.Account;
-import com.banking_rest_api.test_demo_bank.model.AccountDTO;
+import com.banking_rest_api.test_demo_bank.model.dtos.AccountDTO;
+import com.banking_rest_api.test_demo_bank.model.dtos.AccountDTOWithoutTransactions;
 import com.banking_rest_api.test_demo_bank.payload.outgoing.AccountCreatedResponse;
 import com.banking_rest_api.test_demo_bank.service.AccountManagementService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -46,7 +47,7 @@ public class AccountController {
     @Operation(summary = "Get all user accounts", description = "Retrieves a list of all user accounts.")
     @ApiResponse(responseCode = "200", description = "List of accounts retrieved successfully.")
     @GetMapping("/getAll")
-    public ResponseEntity<List<Account>> getAllAccounts() {
+    public ResponseEntity<List<AccountDTOWithoutTransactions>> getAllAccounts() {
         return ResponseEntity.ok(accountManagementService.getAllAccounts());
     }
 }

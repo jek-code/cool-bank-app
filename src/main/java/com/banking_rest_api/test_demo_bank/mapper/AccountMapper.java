@@ -1,7 +1,7 @@
 package com.banking_rest_api.test_demo_bank.mapper;
 
 import com.banking_rest_api.test_demo_bank.model.Account;
-import com.banking_rest_api.test_demo_bank.model.AccountDTO;
+import com.banking_rest_api.test_demo_bank.model.dtos.AccountDTO;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

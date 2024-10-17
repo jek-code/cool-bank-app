@@ -2,11 +2,11 @@ package com.banking_rest_api.test_demo_bank.service.impl;
 
 import com.banking_rest_api.test_demo_bank.mapper.AccountMapper;
 import com.banking_rest_api.test_demo_bank.model.Account;
-import com.banking_rest_api.test_demo_bank.model.AccountDTO;
+import com.banking_rest_api.test_demo_bank.model.dtos.AccountDTO;
+import com.banking_rest_api.test_demo_bank.model.dtos.AccountDTOWithoutTransactions;
 import com.banking_rest_api.test_demo_bank.payload.outgoing.AccountCreatedResponse;
 import com.banking_rest_api.test_demo_bank.repository.AccountRepository;
 import com.banking_rest_api.test_demo_bank.service.AccountManagementService;
-import com.banking_rest_api.test_demo_bank.service.TransactionsService;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -39,11 +39,11 @@ public class AccountManagementServiceImpl implements AccountManagementService {
     @SneakyThrows
     public AccountDTO getAccountById(Long id) {
         log.info("searching for account #{}", id);
-        return mapper.accountToDto(accountRepository.findByIdWithTransactions(id).orElseThrow(AccountNotFoundException::new));
+        return mapper.accountToDto(accountRepository.findWithTransactionsById(id).orElseThrow(AccountNotFoundException::new));
     }
 
     @Override
-    public List<Account> getAllAccounts() {
+    public List<AccountDTOWithoutTransactions> getAllAccounts() {
         return accountRepository.findAllAccountsWithoutTransactions();
     }
 }

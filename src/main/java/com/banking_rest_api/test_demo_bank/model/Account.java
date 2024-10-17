@@ -38,7 +38,7 @@ public class Account {
     @Column(name = "balance")
     private BigDecimal balance;
 
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "accountId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Transaction> transactions;
 
     @CreationTimestamp
