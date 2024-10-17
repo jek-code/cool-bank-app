@@ -21,7 +21,6 @@ import java.util.List;
 public class AccountManagementServiceImpl implements AccountManagementService {
 
     private final AccountRepository accountRepository;
-    private final TransactionsService transServ;
     private final AccountMapper mapper;
 
     @Override
@@ -40,13 +39,11 @@ public class AccountManagementServiceImpl implements AccountManagementService {
     @SneakyThrows
     public AccountDTO getAccountById(Long id) {
         log.info("searching for account #{}", id);
-
-        return mapper.accountToDto(accountRepository.findById(id).orElseThrow(AccountNotFoundException::new));
-        //return new AccountDTO(acc.getId(), acc.getFirst_name(), acc.getLast_name(), acc.getBirthday(), acc.getBalance(), transServ.allTransactionsForAccountID(id));
+        return mapper.accountToDto(accountRepository.findByIdWithTransactions(id).orElseThrow(AccountNotFoundException::new));
     }
 
     @Override
     public List<Account> getAllAccounts() {
-        return accountRepository.findAll();
+        return accountRepository.findAllAccountsWithoutTransactions();
     }
 }

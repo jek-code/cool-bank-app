@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface TransactionsService {
     List<Transaction> allTransactionsForAccountID(Long accountID);
-    TransactionResponse saveTransaction(Transaction trans);
     TransactionResponse deposit(Transaction transaction);
     TransactionResponse withdraw(Transaction transaction);
     TransactionResponse transfer(List<Transaction> transactions);

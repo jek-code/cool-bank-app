@@ -58,7 +58,7 @@ public class TransactionsServiceImplTest {
         TransactionResponse response = accountTransactionsService.saveTransaction(transaction);
 
         assertNotNull(response);
-        assertTrue(response.isWasSuccessful());
+        assertTrue(response.isSuccessful());
         assertEquals(transaction.getOrderID(), response.getTransactionID());
         verify(transactionsRepository, times(1)).save(transaction);
     }

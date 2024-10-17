@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TransactionResponse {
 
-    private boolean wasSuccessful;
+    private boolean successful;
     private String transactionID;
     private String description;
 }

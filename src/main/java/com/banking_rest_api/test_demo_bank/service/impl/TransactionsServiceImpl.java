@@ -28,26 +28,18 @@ public class TransactionsServiceImpl implements TransactionsService {
     }
 
     @Override
-    public TransactionResponse saveTransaction(Transaction trans) {
-
-        transactionsRepository.save(trans);
-        return TransactionResponse.builder()
-                .wasSuccessful(true)
-                .transactionID(trans.getOrderID())
-                .build();
-    }
-
-    @Override
     @Transactional
     public TransactionResponse deposit(Transaction transaction) {
+
         log.info("starting {} order {}", transaction.getType().toString(),transaction.getOrderID());
 
-        Account account = accountRepository.findById(transaction.getAccount()).orElseThrow();
+        Account account = accountRepository.findByIdWithoutTransactions(transaction.getAccount().getId()).orElseThrow();
         account.setBalance(account.getBalance().add(transaction.getSum()));
         accountRepository.save(account);
         transactionsRepository.save(transaction);
+
         return TransactionResponse.builder()
-                .wasSuccessful(true)
+                .successful(true)
                 .transactionID(transaction.getOrderID())
                 .build();
     }
@@ -55,21 +47,26 @@ public class TransactionsServiceImpl implements TransactionsService {
     @Override
     @Transactional
     public TransactionResponse withdraw(Transaction transaction) {
+
         log.info("starting {} order {}", transaction.getType().toString(),transaction.getOrderID());
 
-        Account account = accountRepository.findById(transaction.getAccount()).orElseThrow();
+        Account account = accountRepository.findByIdWithoutTransactions(transaction.getAccount().getId()).orElseThrow();
 
         if (account.getBalance().compareTo(transaction.getSum()) >= 0) {
+
             account.setBalance(account.getBalance().subtract(transaction.getSum()));
             accountRepository.save(account);
             transactionsRepository.save(transaction);
+
             return TransactionResponse.builder()
-                    .wasSuccessful(true)
+                    .successful(true)
                     .transactionID(transaction.getOrderID())
                     .build();
         }
+
+
         return TransactionResponse.builder()
-                .wasSuccessful(false)
+                .successful(false)
                 .description("Insufficient funds")
                 .build();
     }
@@ -77,7 +74,12 @@ public class TransactionsServiceImpl implements TransactionsService {
     @Override
     @Transactional
     public TransactionResponse transfer(List<Transaction> transactions) {
-        withdraw(transactions.get(0));
+
+        var withdrawResponse = withdraw(transactions.get(0));
+
+        if (!withdrawResponse.isSuccessful())
+            return withdrawResponse;
+
         return deposit(transactions.get(1));
     }
 }

@@ -30,8 +30,10 @@ public class Transaction {
     @Column(name = "created")
     private LocalDateTime createdAt;
 
-    @Column(name = "account_id")
-    private Long account;
+    // Link to the Account
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_id", nullable = false)
+    private Account account;
 
     @Column(name = "type")
     private TransactionType type;
