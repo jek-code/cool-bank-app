@@ -91,9 +91,12 @@ The report will be generated in the target/site/jacoco directory. Open the index
 
 
 ----------------------------------------------------------------------------------------------------
+
+
       
-Endpoints
-Here are some of the key API endpoints:
+## Endpoints
+
+### Here are some of the key API endpoints:
 
 POST /api/v1/createUser - Create a new account
 
