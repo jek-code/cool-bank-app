@@ -1,6 +1,7 @@
 package com.banking_rest_api.test_demo_bank.exception;
 
 
+import com.banking_rest_api.test_demo_bank.payload.outgoing.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

@@ -1,4 +1,4 @@
-package com.banking_rest_api.test_demo_bank.exception;
+package com.banking_rest_api.test_demo_bank.payload.outgoing;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
