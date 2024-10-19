@@ -1,10 +1,7 @@
 package com.banking_rest_api.test_demo_bank.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -14,6 +11,8 @@ import java.util.Date;
 import java.util.List;
 
 @Data
+@Getter
+@Setter
 @Entity
 @Builder
 @NoArgsConstructor

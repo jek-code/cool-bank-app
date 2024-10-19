@@ -1,6 +1,7 @@
 package com.banking_rest_api.test_demo_bank.service.impl;
 
 import com.banking_rest_api.test_demo_bank.exception.AccountNotFoundException;
+import com.banking_rest_api.test_demo_bank.exception.InsufficientFundsException;
 import com.banking_rest_api.test_demo_bank.model.Account;
 import com.banking_rest_api.test_demo_bank.model.Transaction;
 import com.banking_rest_api.test_demo_bank.payload.outgoing.TransactionResponse;
@@ -55,23 +56,17 @@ public class TransactionsServiceImpl implements TransactionsService {
         var accId = transaction.getAccountId();
         Account account = accountRepository.findWithoutTransactionsById(accId).orElseThrow(() -> new AccountNotFoundException("Account with ID " + accId + " not found"));
 
-        if (account.getBalance().compareTo(transaction.getSum()) >= 0) {
+        if (account.getBalance().compareTo(transaction.getSum()) < 0)
+            throw new InsufficientFundsException();
 
-            account.setBalance(account.getBalance().subtract(transaction.getSum()));
-            accountRepository.save(account);
-            transactionsRepository.save(transaction);
+        account.setBalance(account.getBalance().subtract(transaction.getSum()));
+        accountRepository.save(account);
+        transactionsRepository.save(transaction);
 
             return TransactionResponse.builder()
                     .successful(true)
                     .transactionID(transaction.getOrderID())
                     .build();
-        }
-
-
-        return TransactionResponse.builder()
-                .successful(false)
-                .description("Insufficient funds")
-                .build();
     }
 
     @Override
