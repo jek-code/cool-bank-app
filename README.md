@@ -1,75 +1,79 @@
-test_demo_bank
+## cool-bank-app
 
 A simple REST API for a banking application. The API allows users to perform basic banking operations such as creating accounts, making deposits, and transferring funds. The project is fully documented with Swagger and covered with tests using JaCoCo for code coverage reporting.
 
 
 ----------------------------------------------------------------------------------------------------
-Features:
+### Features:
 
--Create a new bank account;
-
--Make deposits to accounts;
-
--Transfer funds between accounts;
-
--View account details and transactions;
-
--View all accounts;
+- Create a new bank account
+- Make deposits to accounts
+- Transfer funds between accounts
+- View account details and transactions
+- View all accounts
 
 ----------------------------------------------------------------------------------------------------
 
-Technologies Used:
+### Technologies Used:
 
-Java
-
-Spring Boot
-
-Spring Data JPA
-
-MySQL Database
-
-Docker
-
-Swagger (API documentation)
-
-JaCoCo (test coverage)
+- Java
+- Spring Boot
+- Spring Data JPA
+- MySQL Database
+- Docker
+- Swagger (API documentation)
+- JaCoCo (test coverage)
 
 ----------------------------------------------------------------------------------------------------
 
-Prerequisites
+
+### Prerequisites:
+
 Before running this application locally, ensure you have the following installed:
 
 Docker
 Docker Compose
 
 
-Setup Instructions
-1. Clone the Repository
-   
-         git clone https://github.com/your-username/test_demo_bank.git
-         cd test_demo_bank
 
-2. Build and Run the Application with Docker
+
+# How to Set Up and Run the Application
+
+### 1. Clone the Repository
+   
+         git clone https://github.com/jek-code/cool-bank-app.git
+         cd cool-bank-app
+
+
+### 2. Build and Run the Application with Docker   
    Use Docker Compose to build and run the application. The docker-compose.yml file is already set up to handle all dependencies, including the MySQL database.
+   The application uses a MySQL database, which is set up automatically through Docker. The connection details can be modified in the application.yml file.
 
          docker-compose up --build
 
       This command will:
 
-      Build the necessary Docker images
-      Set up the required services (e.g., MySQL database and the application)
-      Expose the API on a local port (usually http://localhost:8080)
+      - Build the necessary Docker images   
+      - Set up the required services (e.g., MySQL database and the application)   
+      - Expose the API on a local port (usually http://localhost:8080)
+   
 
-3. Access Swagger Documentation
+
+### 3. Access API Documentation
+   
    Once the application is running, you can explore the API using the Swagger UI at:
 
          http://localhost:8080/swagger-ui/index.html
    
-5. Database Configuration
-   The application uses a MySQL database, which is set up automatically through Docker. The connection details can be modified in the application.yml file.
 
-6. Running Tests and Viewing JaCoCo Report
+# Running Tests and Viewing Code Coverage
+   
    The application includes unit and integration tests, and code coverage is measured using JaCoCo.
+   
+
+
+### Running Tests and Viewing JaCoCo Report  
+
 
 To run the tests, use the following command:
 
@@ -82,6 +86,8 @@ To generate and view the JaCoCo code coverage report:
 The report will be generated in the target/site/jacoco directory. Open the index.html file in a web browser to view the coverage details.
 
       open target/site/jacoco/index.html
+
+
 
 
 ----------------------------------------------------------------------------------------------------
