@@ -17,8 +17,8 @@ public class RequestToTransactionMapper {
         return Transaction.builder()
                 .accountId(request.getAccountID())
                 .type(TransactionType.DEPOSIT)
-                .sum(request.getSum())
-                .orderID(UUID.randomUUID().toString())
+                .amount(request.getAmount())
+                .orderId(UUID.randomUUID().toString())
                 .build();
     }
 
@@ -26,8 +26,8 @@ public class RequestToTransactionMapper {
         return Transaction.builder()
                 .accountId(request.getAccountID())
                 .type(TransactionType.WITHDRAW)
-                .sum(request.getSum())
-                .orderID(UUID.randomUUID().toString())
+                .amount(request.getAmount())
+                .orderId(UUID.randomUUID().toString())
                 .build();
     }
 
@@ -39,15 +39,15 @@ public class RequestToTransactionMapper {
         var withdrawTrans = Transaction.builder()
                 .accountId(request.getSenderAccountID())
                 .type(TransactionType.OUTGOING_TRANSFER)
-                .sum(request.getSum())
-                .orderID(orderID)
+                .amount(request.getAmount())
+                .orderId(orderID)
                 .build();
 
         var depTrans = Transaction.builder()
                 .accountId(request.getReceiverAccountID())
                 .type(TransactionType.INCOMING_TRANSFER)
-                .sum(request.getSum())
-                .orderID(orderID)
+                .amount(request.getAmount())
+                .orderId(orderID)
                 .build();
 
         result.add(withdrawTrans);

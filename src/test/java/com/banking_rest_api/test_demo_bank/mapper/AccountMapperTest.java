@@ -20,8 +20,8 @@ class AccountMapperTest {
         // Given
         Account account = Account.builder()
                 .id(1L)
-                .first_name("John")
-                .last_name("Doe")
+                .firstName("John")
+                .lastName("Doe")
                 .birthday(new Date())
                 .balance(BigDecimal.valueOf(1000.00))
                 .transactions(Arrays.asList()) // Assuming no transactions for simplicity
@@ -32,8 +32,8 @@ class AccountMapperTest {
 
         // Then
         assertEquals(account.getId(), accountDTO.id());
-        assertEquals(account.getFirst_name(), accountDTO.first_name());
-        assertEquals(account.getLast_name(), accountDTO.last_name());
+        assertEquals(account.getFirstName(), accountDTO.firstName());
+        assertEquals(account.getLastName(), accountDTO.lastName());
         assertEquals(account.getBirthday(), accountDTO.birthday());
         assertEquals(account.getBalance(), accountDTO.balance());
         assertEquals(account.getTransactions(), accountDTO.transactions());
@@ -56,8 +56,8 @@ class AccountMapperTest {
 
         // Then
         assertEquals(accountDTO.id(), account.getId());
-        assertEquals(accountDTO.first_name(), account.getFirst_name());
-        assertEquals(accountDTO.last_name(), account.getLast_name());
+        assertEquals(accountDTO.firstName(), account.getFirstName());
+        assertEquals(accountDTO.lastName(), account.getLastName());
         assertEquals(accountDTO.birthday(), account.getBirthday());
         assertEquals(accountDTO.balance(), account.getBalance());
         assertEquals(accountDTO.transactions(), account.getTransactions());

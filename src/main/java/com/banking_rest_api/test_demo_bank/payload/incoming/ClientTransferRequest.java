@@ -22,5 +22,5 @@ public class ClientTransferRequest {
     private Long receiverAccountID;
 
     @DecimalMin(value = "0.0", inclusive = false, message = "Amount must be greater than zero")
-    private BigDecimal sum;
+    private BigDecimal amount;
 }

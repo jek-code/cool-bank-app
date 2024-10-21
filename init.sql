@@ -20,7 +20,7 @@ CREATE TABLE `transactions` (
   `account_id` int NOT NULL,
   `type` varchar(20) NOT NULL,
   `created` DATETIME DEFAULT NULL,
-  `sum` DOUBLE DEFAULT NULL,
+  `amount` DOUBLE DEFAULT NULL,
   `order_id` varchar(45),
   PRIMARY KEY (`id`),
   FOREIGN KEY (`account_id`) REFERENCES bank_accounts (`id`)

@@ -33,17 +33,17 @@ public class TransactionsServiceImpl implements TransactionsService {
     @Transactional
     public TransactionResponse deposit(Transaction transaction) {
 
-        log.info("starting {} order {}", transaction.getType().toString(),transaction.getOrderID());
+        log.info("starting {} order {}", transaction.getType().toString(),transaction.getOrderId());
 
         var accId = transaction.getAccountId();
         Account account = accountRepository.findWithoutTransactionsById(accId).orElseThrow(() -> new AccountNotFoundException("Account with ID " + accId + " not found"));
-        account.setBalance(account.getBalance().add(transaction.getSum()));
+        account.setBalance(account.getBalance().add(transaction.getAmount()));
         accountRepository.save(account);
         transactionsRepository.save(transaction);
 
         return TransactionResponse.builder()
                 .successful(true)
-                .transactionID(transaction.getOrderID())
+                .transactionID(transaction.getOrderId())
                 .build();
     }
 
@@ -51,21 +51,21 @@ public class TransactionsServiceImpl implements TransactionsService {
     @Transactional
     public TransactionResponse withdraw(Transaction transaction) {
 
-        log.info("starting {} order {}", transaction.getType().toString(),transaction.getOrderID());
+        log.info("starting {} order {}", transaction.getType().toString(),transaction.getOrderId());
 
         var accId = transaction.getAccountId();
         Account account = accountRepository.findWithoutTransactionsById(accId).orElseThrow(() -> new AccountNotFoundException("Account with ID " + accId + " not found"));
 
-        if (account.getBalance().compareTo(transaction.getSum()) < 0)
+        if (account.getBalance().compareTo(transaction.getAmount()) < 0)
             throw new InsufficientFundsException();
 
-        account.setBalance(account.getBalance().subtract(transaction.getSum()));
+        account.setBalance(account.getBalance().subtract(transaction.getAmount()));
         accountRepository.save(account);
         transactionsRepository.save(transaction);
 
             return TransactionResponse.builder()
                     .successful(true)
-                    .transactionID(transaction.getOrderID())
+                    .transactionID(transaction.getOrderId())
                     .build();
     }
 

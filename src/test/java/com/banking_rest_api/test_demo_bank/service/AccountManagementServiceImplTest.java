@@ -43,7 +43,7 @@ class AccountManagementServiceImplTest {
     @Test
     void testSaveAccount_Success() {
         Account account = new Account();
-        account.setFirst_name("John");
+        account.setFirstName("John");
 
         // Call the service method
         AccountCreatedResponse response = accountManagementService.saveAccount(account);

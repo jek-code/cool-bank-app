@@ -21,6 +21,6 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     @Query("SELECT a FROM Account a WHERE a.id = :id")
     Optional<Account> findWithoutTransactionsById(@Param("id") Long id);
 
-    @Query("SELECT new com.banking_rest_api.test_demo_bank.model.dtos.AccountDTOWithoutTransactions(a.id, a.first_name, a.last_name, a.birthday, a.balance) FROM Account a")
+    @Query("SELECT new com.banking_rest_api.test_demo_bank.model.dtos.AccountDTOWithoutTransactions(a.id, a.firstName, a.lastName, a.birthday, a.balance) FROM Account a")
     List<AccountDTOWithoutTransactions> findAllAccountsWithoutTransactions();
 }

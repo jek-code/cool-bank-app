@@ -19,7 +19,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api/v1")
+@RequestMapping("api/v1/accounts")
 public class AccountController {
 
     private final AccountManagementService accountManagementService;
@@ -29,7 +29,7 @@ public class AccountController {
             @ApiResponse(responseCode = "200", description = "Account successfully created."),
             @ApiResponse(responseCode = "400", description = "Invalid input data.")
     })
-    @PostMapping("/createAccount")
+    @PostMapping
     public ResponseEntity<AccountCreatedResponse> createNewAccount(@Valid @RequestBody Account account) {
         return ResponseEntity.status(HttpStatus.CREATED).body(accountManagementService.saveAccount(account));
     }
@@ -39,14 +39,14 @@ public class AccountController {
             @ApiResponse(responseCode = "200", description = "Account found."),
             @ApiResponse(responseCode = "404", description = "Account not found.")
     })
-    @GetMapping("/getById/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<AccountDTO> getAccById(@Valid @Parameter(description = "ID of the account to be fetched") @PathVariable("id") Long id) {
         return ResponseEntity.ok(accountManagementService.getAccountById(id));
     }
 
     @Operation(summary = "Get all user accounts", description = "Retrieves a list of all user accounts.")
     @ApiResponse(responseCode = "200", description = "List of accounts retrieved successfully.")
-    @GetMapping("/getAll")
+    @GetMapping
     public ResponseEntity<List<AccountDTOWithoutTransactions>> getAllAccounts() {
         return ResponseEntity.ok(accountManagementService.getAllAccounts());
     }

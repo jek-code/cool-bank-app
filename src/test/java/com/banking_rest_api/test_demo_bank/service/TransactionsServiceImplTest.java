@@ -11,13 +11,11 @@ import com.banking_rest_api.test_demo_bank.service.impl.TransactionsServiceImpl;
 import com.banking_rest_api.test_demo_bank.exception.InsufficientFundsException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,8 +47,8 @@ class TransactionsServiceImplTest {
 
         transaction = new Transaction();
         transaction.setAccountId(1L);
-        transaction.setSum(BigDecimal.valueOf(50.00));
-        transaction.setOrderID("ORDER123");
+        transaction.setAmount(BigDecimal.valueOf(50.00));
+        transaction.setOrderId("ORDER123");
     }
 
     @Test
@@ -95,7 +93,7 @@ class TransactionsServiceImplTest {
     @Test
     void testWithdraw_InsufficientFunds() {
         // Arrange
-        transaction.setSum(BigDecimal.valueOf(1200.00));  // Withdraw more than balance
+        transaction.setAmount(BigDecimal.valueOf(1200.00));  // Withdraw more than balance
         transaction.setType(TransactionType.WITHDRAW);
         when(accountRepository.findWithoutTransactionsById(1L)).thenReturn(Optional.of(account));
 
@@ -126,14 +124,14 @@ class TransactionsServiceImplTest {
 
         Transaction withdrawTransaction = new Transaction();
         withdrawTransaction.setAccountId(1L);
-        withdrawTransaction.setSum(BigDecimal.valueOf(50.00));
-        withdrawTransaction.setOrderID("WITHDRAW_ORDER");
+        withdrawTransaction.setAmount(BigDecimal.valueOf(50.00));
+        withdrawTransaction.setOrderId("WITHDRAW_ORDER");
         withdrawTransaction.setType(TransactionType.OUTGOING_TRANSFER);
 
         Transaction depositTransaction = new Transaction();
         depositTransaction.setAccountId(2L);
-        depositTransaction.setSum(BigDecimal.valueOf(50.00));
-        depositTransaction.setOrderID("DEPOSIT_ORDER");
+        depositTransaction.setAmount(BigDecimal.valueOf(50.00));
+        depositTransaction.setOrderId("DEPOSIT_ORDER");
         depositTransaction.setType(TransactionType.INCOMING_TRANSFER);
 
         List<Transaction> transactions = List.of(withdrawTransaction, depositTransaction);
@@ -154,22 +152,19 @@ class TransactionsServiceImplTest {
 
         Transaction withdrawTransaction = new Transaction();
         withdrawTransaction.setAccountId(1L);
-        withdrawTransaction.setSum(BigDecimal.valueOf(200.00)); // Withdraw more than the balance
-        withdrawTransaction.setOrderID("WITHDRAW_ORDER");
+        withdrawTransaction.setAmount(BigDecimal.valueOf(200.00)); // Withdraw more than the balance
+        withdrawTransaction.setOrderId("WITHDRAW_ORDER");
         withdrawTransaction.setType(TransactionType.OUTGOING_TRANSFER);
 
         Transaction depositTransaction = new Transaction();
         depositTransaction.setAccountId(2L);
-        depositTransaction.setSum(BigDecimal.valueOf(50.00));
-        depositTransaction.setOrderID("DEPOSIT_ORDER");
+        depositTransaction.setAmount(BigDecimal.valueOf(50.00));
+        depositTransaction.setOrderId("DEPOSIT_ORDER");
         depositTransaction.setType(TransactionType.INCOMING_TRANSFER);
 
         List<Transaction> transactions = List.of(withdrawTransaction, depositTransaction);
+        assertThrows(InsufficientFundsException.class, () -> transactionsService.transfer(transactions));
 
-        TransactionResponse response = transactionsService.transfer(transactions);
-
-        assertEquals(false, response.isSuccessful());
-        assertEquals("Insufficient funds", response.getDescription());
         verify(transactionsRepository, never()).save(withdrawTransaction);
         verify(transactionsRepository, never()).save(depositTransaction);
     }

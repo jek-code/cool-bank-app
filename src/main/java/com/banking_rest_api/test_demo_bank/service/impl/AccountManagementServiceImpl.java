@@ -24,7 +24,7 @@ public class AccountManagementServiceImpl implements AccountManagementService {
 
     @Override
     public AccountCreatedResponse saveAccount(Account account) {
-        log.info("creating new account for {}", account.getFirst_name());
+        log.info("creating new account for {}", account.getFirstName());
 
         accountRepository.save(account);
         return AccountCreatedResponse.builder()

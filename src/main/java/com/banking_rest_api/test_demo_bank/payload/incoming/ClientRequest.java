@@ -20,5 +20,5 @@ public class ClientRequest {
     private Long accountID;
 
     @DecimalMin(value = "0.0", inclusive = false, message = "Amount must be greater than zero")
-    private BigDecimal sum;
+    private BigDecimal amount;
 }

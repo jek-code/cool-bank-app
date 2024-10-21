@@ -19,25 +19,24 @@ import java.time.LocalDateTime;
 public class Transaction {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @CreationTimestamp
-    @Column(name = "created", nullable = false)
-    private LocalDateTime createdAt;
+    @Column(nullable = false)
+    private LocalDateTime created;
 
-    @Column(name = "account_id", nullable = false)
+    @Column(nullable = false)
     private Long accountId;
 
-    @Column(name = "type", nullable = false)
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private TransactionType type;
 
-    @Column(name = "sum", nullable = false)
-    private BigDecimal sum;
+    @Column(nullable = false)
+    private BigDecimal amount;
 
-    @Column(name = "order_id", nullable = false, unique = true)
-    private String orderID;
+    @Column(nullable = false, unique = true)
+    private String orderId;
 
 }
